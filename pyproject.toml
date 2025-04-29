@@ -16,7 +16,9 @@ dependencies = [
     "protobuf (>=6.30.2,<7.0.0)",
     "sentencepiece (>=0.2.0,<0.3.0)",
     "transformers (>=4.51.3,<5.0.0)",
-    "telegram (>=0.0.1,<0.0.2)"
+    "telegram (>=0.0.1,<0.0.2)",
+    "loadenv (>=0.1.1,<0.2.0)",
+    "dotenv (>=0.9.9,<0.10.0)"
 ]
 
 

@@ -3,6 +3,9 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 from retriever import Retriever
 from generator import Generator
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class TelegramBot:
     def __init__(self, token):
