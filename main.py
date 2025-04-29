@@ -1,7 +1,7 @@
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
-from retriever import Retriever
-from generator import Generator
+from retriever1 import Retriever
+from generator1 import Generator
 import os
 from dotenv import load_dotenv
 
