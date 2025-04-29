@@ -2,6 +2,7 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 from retriever import Retriever
 from generator import Generator
+import os
 
 class TelegramBot:
     def __init__(self, token):
@@ -28,6 +29,6 @@ class TelegramBot:
         self.app.run_polling()
 
 if __name__ == "__main__":
-    TOKEN = ""
+    TOKEN = os.getenv("TG")
     bot = TelegramBot(TOKEN)
     bot.run()

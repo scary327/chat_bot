@@ -4,15 +4,12 @@ from sklearn.metrics import f1_score
 from retriever import Retriever
 
 def evaluate_f1(dataset_name="Mykes/rus_med_dialogues", model_name="sentence-transformers/paraphrase-multilingual-mpnet-base-v2"):
-    # Загрузка test сплита
     test_dataset = load_dataset(dataset_name, split="test")
     test_data = test_dataset.to_pandas()
     
-    # Проверка наличия нужных колонок
     if 'user_question' not in test_data.columns or 'assistant_answer' not in test_data.columns:
         raise ValueError("Тестовый датасет должен содержать колонки 'user_question' и 'assistant_answer'.")
     
-    # Инициализация retriever (использует train сплит)
     retriever = Retriever(dataset_name, model_name)
     
     y_true = []
