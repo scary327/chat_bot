@@ -25,7 +25,8 @@ class TelegramBot:
 
         retrieved_contexts = self.retriever.get_retrieved_answer(user_input)
 
-        response = self.generator.generate_response(user_input, retrieved_contexts)
+        # response = self.generator.generate_response(user_input, retrieved_contexts)
+        response = self.generator.generate_response_sber(user_input, retrieved_contexts)
         await update.message.reply_text(response)
     
     def run(self):

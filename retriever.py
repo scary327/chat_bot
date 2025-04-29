@@ -14,7 +14,7 @@ class Retriever:
     def get_retrieved_answer(self, user_input):
         user_embedding = self.model.encode(user_input, convert_to_tensor=True)
         cos_scores = util.cos_sim(user_embedding, self.question_embeddings)[0]
-        top_k = 3
+        top_k = 1
         top_results = torch.topk(cos_scores, k=top_k)
         results = []
         for idx, score in zip(top_results.indices, top_results.values):
