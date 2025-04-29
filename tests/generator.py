@@ -27,11 +27,12 @@ class Generator:
     def generate_answer(self, user_input, retrieved_contexts):
         context_str = "\n".join(retrieved_contexts)
         prompt = (
-            f"Вы — врач. Ответьте на вопрос пользователя, используя ТОЛЬКО информацию из КОНТЕКСТА. "
-            f"Не добавляйте ничего нового, не угадывайте, не советуйте обращаться к кому-либо ещё. "
-            f"Если в контексте нет ответа — напишите: 'Информации для ответа недостаточно'.\n\n"
-            f"Вопрос: {user_input}\n"
-            f"Контекст: {context_str}\n"
+            f"Вы — медицинский ассистент. Ваша задача — ответить на вопрос пользователя, используя ТОЛЬКО информацию из предоставленного контекста. "
+            f"Не добавляйте никаких новых данных, не давайте советов, не упоминая контекст, и не предлагайте обращаться к врачам или другим специалистам. "
+            f"Если в контексте нет достаточно информации для ответа, напишите: 'Информации для ответа недостаточно'. "
+            f"Формат ответа: только текст ответа, без повторения вопроса или контекста.\n\n"
+            f"Контекст:\n{context_str}\n\n"
+            f"Вопрос: {user_input}\n\n"
             f"Ответ:"
         )
         inputs = self.tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True, padding=True, return_attention_mask=True)
@@ -40,13 +41,10 @@ class Generator:
         outputs = self.model.generate(
             inputs['input_ids'],
             attention_mask=inputs['attention_mask'],
-            max_new_tokens=70,
-            num_beams=3,
-            early_stopping=True,
-            top_k=1,
+            max_new_tokens=55,  # Уменьшаем, чтобы избежать лишнего текста
+            num_beams=5,  # Увеличиваем для лучшего поиска
             no_repeat_ngram_size=2,
-            temperature=0.0,
-            do_sample=False,
+            early_stopping=True,
             pad_token_id=self.tokenizer.eos_token_id,
             eos_token_id=self.tokenizer.eos_token_id
         )

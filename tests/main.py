@@ -51,7 +51,7 @@ class ModelTester:
                 "bleu_score": bleu_score
             })
             i+=1
-            if i == 4: break
+            if i == 15: break
 
         avg_blue = sum(bleu_scores) / len(bleu_scores) if len(bleu_scores) != 0 else 0
         print(f"Average BLEU score: {avg_blue:.4f}")
