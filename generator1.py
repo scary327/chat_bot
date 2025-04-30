@@ -8,7 +8,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 
-
 class Generator:
     def __init__(self, model_name="sberbank-ai/rugpt3large_based_on_gpt2"):
         self.token=os.getenv("MODEL")
@@ -32,21 +31,21 @@ class Generator:
             f"Вопрос: {user_input}\n\n"
             f"Ответ:"
         )
+
         inputs = self.tokenizer(
-            prompt,
-            return_tensors="pt",
-            max_length=512,
-            truncation=True,
-            padding=True,
+            prompt, 
+            return_tensors="pt", 
+            max_length=1024,
+            truncation=True, 
+            padding=True, 
             return_attention_mask=True
-            )
+        )
         
-        # Генерация ответа
         outputs = self.model.generate(
             inputs['input_ids'],
             attention_mask=inputs['attention_mask'],
-            max_new_tokens=63,
-            num_beams=13,  
+            max_new_tokens=70,
+            num_beams=13,
             no_repeat_ngram_size=2,
             early_stopping=True,
             pad_token_id=self.tokenizer.eos_token_id,
