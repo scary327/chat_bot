@@ -59,21 +59,20 @@ class ModelTester:
         df = pd.DataFrame(output)
         df.to_csv(f"{self.name.replace("/", "--")} (bleu={avg_blue}).csv", index=False, encoding="utf-8")
 
-    
-
 
 if __name__ == "__main__":
     transformers = [
         "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
-        # "sentence-transformers/LaBSE",
-        # "intfloat/multilingual-e5-large"
+        "sentence-transformers/LaBSE",
+        "intfloat/multilingual-e5-large"
     ]
     generator_models = [
         {
             "name": "sberbank-ai/rugpt3large_based_on_gpt2",
             "tokenizer": GPT2Tokenizer,
             "model": GPT2LMHeadModel
-        }
+        },
+        # тут еще модели типо будут
     ]
     for transformer in transformers:
         for generator in generator_models:

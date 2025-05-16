@@ -1,7 +1,7 @@
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 from retriever1 import Retriever
-from generator1 import Generator
+from generator_api import Generator
 import os
 from dotenv import load_dotenv
 
@@ -25,7 +25,6 @@ class TelegramBot:
 
         retrieved_contexts = self.retriever.get_retrieved_answer(user_input)
 
-        # response = self.generator.generate_response(user_input, retrieved_contexts)
         response = self.generator.generate_response_sber(user_input, retrieved_contexts)
         await update.message.reply_text(response)
     

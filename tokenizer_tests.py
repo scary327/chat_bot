@@ -14,7 +14,10 @@ class TokenizerTest:
         self.model = SentenceTransformer(model_name)
         dataset_train = load_dataset(dataset_name, split="train")
         dataset_test = load_dataset(dataset_name, split="test")
-        self.dataset = concatenate_datasets([dataset_train, dataset_test])
+        self.dataset_test = dataset_test
+        self.dataset_train = dataset_train
+        # self.dataset = concatenate_datasets([dataset_train, dataset_test])
+        self.dataset = dataset_train
         self.model_name = model_name
 
         self.questions = [item["user_question"] for item in self.dataset]
@@ -39,7 +42,7 @@ class TokenizerTest:
         bleu_scores = []
         output = []
         # Итерируемся по тестовому датасету
-        for item in tqdm(self.dataset, desc="Тестируем штучки"):
+        for item in tqdm(self.dataset_test, desc="Тестируем штучки"):
             question = item["user_question"]
             answer = item["assistant_answer"]
             
@@ -70,8 +73,8 @@ class TokenizerTest:
 
 
 if __name__ == "__main__":
-    model_name = "sentence-transformers/LaBSE"
+    model_name = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
     tester = TokenizerTest(model_name)
-    for i in range(3, 6):
+    for i in range(3, 7):
         tester.run_test(top_k=i)
     
