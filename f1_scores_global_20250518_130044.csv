@@ -1,0 +1,4 @@
+file_name,f1_score
+Generated_answers_Qwen.csv,0.7533795237541199
+Generated_answers_Phi.csv,0.6851741237540965
+Generated_answers_LLama.csv,0.701380528852144

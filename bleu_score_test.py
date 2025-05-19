@@ -11,18 +11,18 @@ import os
 def run_test(retriever, generator):
     bleu_scores = []
     output = []
-    i=0
-    dataset = load_dataset("Mykes/rus_med_dialogues", split="test").select(range(150, 200))
+    i=30
+    dataset = load_dataset("Mykes/rus_med_dialogues", split="test").select(range(i, 300))
     
     # Имя файла для сохранения промежуточных результатов
-    ongoing_file = "BLEU_score_results_(100-150)_promt.csv"
+    ongoing_file = "Generated_answers_Qwen_ongoing.csv"
     
     # Создаем файл с заголовками, если он не существует
     if not os.path.exists(ongoing_file):
-        pd.DataFrame(columns=["question", "ground_truth", "generated_answer", "bleu_score"]).to_csv(
+        pd.DataFrame(columns=["id", "question", "ground_truth", "generated_answer"]).to_csv(
             ongoing_file, index=False, encoding="utf-8")
 
-    for item in tqdm(dataset, desc=f"BLEU score test"):
+    for item in tqdm(dataset, desc=f"Generating answers"):
         question = item["user_question"]
         answer = item["assistant_answer"]
 
@@ -33,14 +33,11 @@ def run_test(retriever, generator):
             i += 1
             continue
 
-        bleu_score = sentence_bleu([answer], generated_answer)
-        bleu_scores.append(bleu_score)
-
         result = {
+            "id": i,
             "question": question,
             "ground_truth": answer,
             "generated_answer": generated_answer,
-            "bleu_score": bleu_score
         }
         output.append(result)
 
@@ -49,14 +46,11 @@ def run_test(retriever, generator):
 
         i += 1
         if i % 5 == 0:
-            time.sleep(180)
-
-    avg_blue = sum(bleu_scores) / len(bleu_scores) if len(bleu_scores) != 0 else 0
-    print(f"Average BLEU score: {avg_blue:.4f}")
+            time.sleep(120)
 
     # Сохраняем итоговый файл с полными результатами
     df = pd.DataFrame(output)
-    df.to_csv(f"BLEU score test (final, bleu={avg_blue:.4f}).csv", index=False, encoding="utf-8")
+    df.to_csv(f"Generated_answers_Qwen.csv", index=False, encoding="utf-8")
 
 
 if __name__ == "__main__":

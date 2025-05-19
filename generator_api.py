@@ -14,11 +14,9 @@ logger = logging.getLogger(__name__)
 
 
 class Generator:
-    # def __init__(self, model_name="Qwen/Qwen2.5-7B-Instruct-Turbo"):
-    def __init__(self, model_name="microsoft/Phi-3.5-mini-instruct"):
+    def __init__(self, model_name="Qwen/Qwen2.5-7B-Instruct-Turbo"):
         self.model_name = model_name
-        # self.API_URL = "https://router.huggingface.co/together/v1/chat/completions"
-        self.API_URL = "https://router.huggingface.co/nebius/v1/chat/completions"
+        self.API_URL = "https://router.huggingface.co/together/v1/chat/completions"
         self.headers = {
             "Authorization": f"Bearer {os.getenv('MODEL')}",
             "Content-Type": "application/json",
@@ -30,7 +28,7 @@ class Generator:
         prompt = (
             f"Вы — медицинский ассистент. Ваша задача — ответить на вопрос пользователя, используя ТОЛЬКО информацию из предоставленного контекста. "
             f"Не добавляйте никаких новых данных, не давайте советов, не упоминая контекст."
-            f"Формат ответа: только текст ответа, без повторения вопроса или контекста. Ответ должен быть полным и подробным.\n\n"
+            f"Формат ответа: только текст ответа, без повторения вопроса или контекста. Ответ должен быть максимально полным и подробным и если есть рекомендации врача.\n\n"
             f"Контекст: {context_str}\n"
             f"Вопрос: {user_input}\n"
             f"Ответ:"

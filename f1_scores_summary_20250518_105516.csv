@@ -1,0 +1,9 @@
+file_name,f1_score,samples_count
+BLEU_score_results_(60-70).csv,0.7548836469650269,9
+BLEU_score_results_(70-100).csv,0.7461216449737549,30
+"BLEU score test (final, bleu=0.4209).csv",0.7461216449737549,30
+BLEU_score_results_(100-150).csv,0.74603670835495,50
+"BLEU score test (final, bleu=0.3970).csv",0.74603670835495,50
+BLEU_score_results_2.csv,0.7404206395149231,9
+BLEU score test (bleu=0.39309059229984056).csv,0.7362656593322754,10
+BLEU_score_results.csv,0.7331745624542236,18
